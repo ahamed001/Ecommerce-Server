@@ -66,7 +66,7 @@ public class AdminProductController {
 		}
 
 		ApiResponse res = new ApiResponse();
-		res.setMessage("Product deleted successfully");
+		res.setMessage("Product created successfully");
 		res.setStatus(true);
 		return new ResponseEntity<>(res, HttpStatus.CREATED);
 	}

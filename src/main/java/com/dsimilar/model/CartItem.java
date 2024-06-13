@@ -25,11 +25,11 @@ public class CartItem {
 	private String size;
 
 	private int quantity;
-	
+
 	private int discountPrice;
 
 	private Integer price;
-	
+
 	private Long userId;
 
 	public CartItem() {

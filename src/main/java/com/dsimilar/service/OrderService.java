@@ -15,7 +15,7 @@ public interface OrderService {
 
 	public List<Order> usersOrderHistory(Long userId);
 
-	public Order placeOrder(Long OrderId) throws OrderException;
+	public Order placedOrder(Long OrderId) throws OrderException;
 
 	public Order confirmedOrder(Long OrderId) throws OrderException;
 

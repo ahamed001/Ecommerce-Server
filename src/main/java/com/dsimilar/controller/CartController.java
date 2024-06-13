@@ -20,7 +20,7 @@ import com.dsimilar.service.CartService;
 import com.dsimilar.service.UserService;
 
 @RestController
-@RequestMapping("/api/cart")
+@RequestMapping("api/cart")
 public class CartController {
 
 	@Autowired
