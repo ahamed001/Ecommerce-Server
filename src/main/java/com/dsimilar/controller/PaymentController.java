@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -28,10 +29,10 @@ import com.razorpay.RazorpayException;
 @RequestMapping("/api")
 public class PaymentController {
 
-	@Value("{razorpay.api.key}")
+	@Value("${razorpay.api.key}")
 	String apiKey;
 
-	@Value("{razorpay.api.secret}")
+	@Value("${razorpay.api.secret}")
 	String apiSecret;
 
 	@Autowired
@@ -40,6 +41,7 @@ public class PaymentController {
 	@Autowired
 	private UserService userService;
 
+	@Autowired
 	private OrderRepository orderRepository;
 
 	@PostMapping("/payments/{orderId}")
@@ -65,7 +67,7 @@ public class PaymentController {
 			notify.put("email", true);
 			paymentLinkRequest.put("notify", notify);
 
-			paymentLinkRequest.put("callback_url", "http://localhost:3000/payment/" + orderId);
+			paymentLinkRequest.put("callback_url", "http://localhost:3000/payments/" + orderId);
 			paymentLinkRequest.put("callback_method", "get");
 
 			PaymentLink payment = razorpay.paymentLink.create(paymentLinkRequest);
@@ -83,9 +85,9 @@ public class PaymentController {
 
 			throw new RazorpayException(e.getMessage());
 		}
-
 	}
 
+	@GetMapping("/payments")
 	public ResponseEntity<ApiResponse> redirect(@RequestParam(name = "payment_id") String paymentId,
 			@RequestParam(name = "order_id") Long orderId) throws OrderException, RazorpayException {
 
@@ -110,6 +112,5 @@ public class PaymentController {
 		} catch (Exception e) {
 			throw new RazorpayException(e.getMessage());
 		}
-
 	}
 }
