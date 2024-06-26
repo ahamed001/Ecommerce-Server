@@ -29,17 +29,17 @@ import com.razorpay.RazorpayException;
 @RequestMapping("/api")
 public class PaymentController {
 
-	@Value("${razorpay.api.key}")
+	@Value("${razorpay.api_key}")
 	String apiKey;
 
-	@Value("${razorpay.api.secret}")
+	@Value("${razorpay.api_secret}")
 	String apiSecret;
 
 	@Autowired
-	private OrderService orderService;
+	private UserService userService;
 
 	@Autowired
-	private UserService userService;
+	private OrderService orderService;
 
 	@Autowired
 	private OrderRepository orderRepository;
@@ -65,9 +65,9 @@ public class PaymentController {
 			JSONObject notify = new JSONObject();
 			notify.put("sms", true);
 			notify.put("email", true);
-			paymentLinkRequest.put("notify", notify);
 
-			paymentLinkRequest.put("callback_url", "http://localhost:3000/payments/" + orderId);
+			paymentLinkRequest.put("notify", notify);
+			paymentLinkRequest.put("callback_url", "http://localhost:3000/payment/" + orderId);
 			paymentLinkRequest.put("callback_method", "get");
 
 			PaymentLink payment = razorpay.paymentLink.create(paymentLinkRequest);
@@ -82,7 +82,6 @@ public class PaymentController {
 			return new ResponseEntity<PaymentLinkResponse>(res, HttpStatus.CREATED);
 
 		} catch (Exception e) {
-
 			throw new RazorpayException(e.getMessage());
 		}
 	}
@@ -105,7 +104,7 @@ public class PaymentController {
 			}
 
 			ApiResponse res = new ApiResponse();
-			res.setMessage("Your order has been placed");
+			res.setMessage("Your order got placed");
 			res.setStatus(true);
 			return new ResponseEntity<ApiResponse>(res, HttpStatus.ACCEPTED);
 
