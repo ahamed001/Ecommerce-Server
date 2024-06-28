@@ -33,7 +33,9 @@ public class appConfig {
 
 						CorsConfiguration cfg = new CorsConfiguration();
 
-						cfg.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
+						cfg.setAllowedOrigins(Arrays.asList(
+								"http://localhost:3000",
+								"ecommerce-client-drab.vercel.app"));
 						cfg.setAllowedMethods(Collections.singletonList("*"));
 						cfg.setAllowCredentials(true);
 						cfg.setAllowedHeaders(Collections.singletonList("*"));
